@@ -18,28 +18,48 @@ const slides = [
 ]
 
 let leftArrow = document.querySelector(".arrow_left");
-leftArrow.addEventListener("click", (event) => {
-	console.log(event.target)
-});
+let image = document.querySelector(".banner-img");
+let tagline = document.querySelector("#banner p");
 
+let imageIndex = 0
+
+leftArrow.addEventListener("click", () => {
+	if(imageIndex>0){
+		imageIndex--
+	}else {
+		imageIndex=(slides.length-1)
+	}
+	image.src=`./assets/images/slideshow/${slides[imageIndex].image}`
+	let p = `<p>${slides[imageIndex].tagLine}</p>`
+	tagline.innerHTML = p
+});
+ 
 let rightArrow = document.querySelector(".arrow_right");
-rightArrow.addEventListener("click", (event) => {
-	console.log(event.target)
+
+rightArrow.addEventListener("click", () => {
+	if(imageIndex<(slides.length-1)){
+		imageIndex++
+	}else {
+		imageIndex=0
+	}
+	image.src=`./assets/images/slideshow/${slides[imageIndex].image}`
+	let p = `<p>${slides[imageIndex].tagLine}</p>`
+	tagline.innerHTML = p
 });
 
 let bulletDivBlock = document.querySelector(".dots");
-let bulletId = 1
+let bulletId = 0
 
 for(let i = 1; i <= slides.length; i++) {
 	let bullet= document.createElement("span")
 	bullet.id= bulletId
-	if (bulletId === 1){
+	if (bulletId === 0){
 		bullet.classList=("dot dot_selected");
 	} else {
 		bullet.classList=("dot")
 	}
 	bulletDivBlock.appendChild(bullet);
-	bulletId = bulletId+i
+	bulletId++
 };
 
 
