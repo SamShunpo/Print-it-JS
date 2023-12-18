@@ -16,6 +16,24 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
+function removeBulletClass(index) {
+	let bulletSelected = document.getElementById(`${index}`)
+	bulletSelected.classList.remove("dot_selected")
+}
+
+function addBulletClass(index) {
+	bulletSelected = document.getElementById(`${index}`)
+	bulletSelected.classList.add("dot_selected")
+}
+
+function changeImageAndTitle(index) {
+	let tagline = document.querySelector("#banner p");
+	let image = document.querySelector(".banner-img");
+
+	image.src=`./assets/images/slideshow/${slides[index].image}`
+	let p = `<p>${slides[index].tagLine}</p>`
+	tagline.innerHTML = p
+}
 
 let bulletDivBlock = document.querySelector(".dots");
 let bulletId = 0
@@ -34,46 +52,33 @@ for(let i = 1; i <= slides.length; i++) {
 
 
 let leftArrow = document.querySelector(".arrow_left");
-let image = document.querySelector(".banner-img");
-let tagline = document.querySelector("#banner p");
-
 let imageIndex = 0
 
-
 leftArrow.addEventListener("click", () => {
-	let bulletSelected = document.getElementById(`${imageIndex}`)
-	bulletSelected.classList.remove("dot_selected")
+	removeBulletClass(imageIndex);
+
 	if(imageIndex>0){
 		imageIndex--
 	}else {
 		imageIndex=(slides.length-1)
-	}
-	
-	image.src=`./assets/images/slideshow/${slides[imageIndex].image}`
-	let p = `<p>${slides[imageIndex].tagLine}</p>`
-	tagline.innerHTML = p
-
-	bulletSelected = document.getElementById(`${imageIndex}`)
-	bulletSelected.classList.add("dot_selected")
+	};
+	changeImageAndTitle(imageIndex);
+	addBulletClass(imageIndex);
 
 });
  
 let rightArrow = document.querySelector(".arrow_right");
 
 rightArrow.addEventListener("click", () => {
-	let bulletSelected = document.getElementById(`${imageIndex}`)
-	bulletSelected.classList.remove("dot_selected")
+	removeBulletClass(imageIndex);
+
 	if(imageIndex<(slides.length-1)){
 		imageIndex++
 	}else {
 		imageIndex=0
-	}
-	image.src=`./assets/images/slideshow/${slides[imageIndex].image}`
-	let p = `<p>${slides[imageIndex].tagLine}</p>`
-	tagline.innerHTML = p
-
-	bulletSelected = document.getElementById(`${imageIndex}`)
-	bulletSelected.classList.add("dot_selected")
+	};
+	changeImageAndTitle(imageIndex);
+	addBulletClass(imageIndex);
 
 });
 
