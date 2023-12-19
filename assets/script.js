@@ -62,7 +62,6 @@ let leftArrow = document.querySelector(".arrow_left");
 let imageIndex = 0;
 
 leftArrow.addEventListener("click", () => {
-	updateSelectedBullet(imageIndex);
 
 	if(imageIndex>0){
 		imageIndex--
@@ -70,14 +69,13 @@ leftArrow.addEventListener("click", () => {
 		imageIndex=(slides.length-1)
 	};
 	changeImageAndTitle(imageIndex);
-	updateSelectedBullet(imageIndex)
+
 
 });
  
 let rightArrow = document.querySelector(".arrow_right");
 
 rightArrow.addEventListener("click", () => {
-	updateSelectedBullet(imageIndex)
 
 	if(imageIndex<(slides.length-1)){
 		imageIndex++
@@ -85,7 +83,7 @@ rightArrow.addEventListener("click", () => {
 		imageIndex=0
 	};
 	changeImageAndTitle(imageIndex);
-	updateSelectedBullet(imageIndex)
+
 
 });
 
