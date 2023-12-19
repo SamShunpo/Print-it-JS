@@ -17,46 +17,50 @@ const slides = [
 	}
 ];
 
-function removeBulletClass(index) {
-	let bulletSelected = document.getElementById(`${index}`);
-	bulletSelected.classList.remove("dot_selected");
-};
 
-function addBulletClass(index) {
-	bulletSelected = document.getElementById(`${index}`);
-	bulletSelected.classList.add("dot_selected");
-};
-
+// Fonction pour changer l'image et le titre
 function changeImageAndTitle(index) {
-	let tagline = document.querySelector("#banner p");
-	let image = document.querySelector(".banner-img");
+    const tagline = document.querySelector("#banner p");
+    const image = document.querySelector(".banner-img");
 
-	image.src=`./assets/images/slideshow/${slides[index].image}`;
-	let p = `<p>${slides[index].tagLine}</p>`;
-	tagline.innerHTML = p;
-};
+    image.src = `./assets/images/slideshow/${slides[index].image}`;
+    tagline.innerHTML = `<p>${slides[index].tagLine}</p>`;
+}
 
-let bulletDivBlock = document.querySelector(".dots");
+// Fonction pour mettre à jour la bullet point sélectionnée
+function updateSelectedBullet(newIndex) {
+    const bullets = document.querySelectorAll('.dot');
+    bullets.forEach(bullet => bullet.classList.remove('dot_selected'));
+
+    const bulletSelected = document.getElementById(newIndex);
+    bulletSelected.classList.add('dot_selected');
+}
+
+// Création des bullet points
+const bulletDivBlock = document.querySelector(".dots");
 let bulletId = 0;
 
-for(let i = 1; i <= slides.length; i++) {
-	let bullet = document.createElement("span");
-	bullet.id = bulletId;
-	if(bulletId===0){
-		bullet.classList=("dot dot_selected")
-	}else{
-		bullet.classList=("dot")
-	};
-	bulletDivBlock.appendChild(bullet);
-	bulletId++;
-};
+for (let i = 0; i < slides.length; i++) {
+    const bullet = document.createElement("span");
+    bullet.className = 'dot';
+    bullet.id = bulletId;
+    if (bulletId === 0) {
+        bullet.classList.add('dot_selected');
+    }
+    bullet.addEventListener("click", () => {
+        changeImageAndTitle(bullet.id);
+        updateSelectedBullet(bullet.id);
+    });
+    bulletDivBlock.appendChild(bullet);
+    bulletId++;
+}
 
-
+// Gestion des flèches de navigation
 let leftArrow = document.querySelector(".arrow_left");
 let imageIndex = 0;
 
 leftArrow.addEventListener("click", () => {
-	removeBulletClass(imageIndex);
+	updateSelectedBullet(imageIndex);
 
 	if(imageIndex>0){
 		imageIndex--
@@ -64,14 +68,14 @@ leftArrow.addEventListener("click", () => {
 		imageIndex=(slides.length-1)
 	};
 	changeImageAndTitle(imageIndex);
-	addBulletClass(imageIndex);
+	updateSelectedBullet(imageIndex)
 
 });
  
 let rightArrow = document.querySelector(".arrow_right");
 
 rightArrow.addEventListener("click", () => {
-	removeBulletClass(imageIndex);
+	updateSelectedBullet(imageIndex)
 
 	if(imageIndex<(slides.length-1)){
 		imageIndex++
@@ -79,9 +83,10 @@ rightArrow.addEventListener("click", () => {
 		imageIndex=0
 	};
 	changeImageAndTitle(imageIndex);
-	addBulletClass(imageIndex);
+	updateSelectedBullet(imageIndex)
 
 });
+
 
 
 
