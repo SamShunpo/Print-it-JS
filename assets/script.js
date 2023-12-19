@@ -20,11 +20,13 @@ const slides = [
 
 // Fonction pour changer l'image et le titre
 function changeImageAndTitle(index) {
+	imageIndex = parseInt(index);
     const tagline = document.querySelector("#banner p");
     const image = document.querySelector(".banner-img");
 
     image.src = `./assets/images/slideshow/${slides[index].image}`;
     tagline.innerHTML = `<p>${slides[index].tagLine}</p>`;
+	updateSelectedBullet(index);
 }
 
 // Fonction pour mettre à jour la bullet point sélectionnée
@@ -49,7 +51,7 @@ for (let i = 0; i < slides.length; i++) {
     }
     bullet.addEventListener("click", () => {
         changeImageAndTitle(bullet.id);
-        updateSelectedBullet(bullet.id);
+
     });
     bulletDivBlock.appendChild(bullet);
     bulletId++;
@@ -86,7 +88,4 @@ rightArrow.addEventListener("click", () => {
 	updateSelectedBullet(imageIndex)
 
 });
-
-
-
 
